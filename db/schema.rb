@@ -27,6 +27,21 @@ Sequel.migration do
       index [:name]
       index [:sport_id]
     end
+    
+    create_table(:teams) do
+      column :id, "uuid", :default=>Sequel::LiteralString.new("uuid_generate_v4()"), :null=>false
+      foreign_key :league_id, :leagues, :type=>"uuid", :null=>false, :key=>[:id]
+      column :abbreviation, "citext"
+      column :city, "citext", :null=>false
+      column :mascot, "citext", :null=>false
+      
+      primary_key [:id]
+      
+      index [:abbreviation]
+      index [:city]
+      index [:league_id]
+      index [:mascot]
+    end
   end
 end
               Sequel.migration do
@@ -36,5 +51,6 @@ end
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051042_add_citext.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051837_create_sports.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108052206_create_leagues.rb')"
+self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108053420_create_teams.rb')"
                 end
               end
