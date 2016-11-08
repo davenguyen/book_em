@@ -42,6 +42,27 @@ Sequel.migration do
       index [:league_id]
       index [:mascot]
     end
+    
+    create_table(:games) do
+      column :id, "uuid", :default=>Sequel::LiteralString.new("uuid_generate_v4()"), :null=>false
+      column :created_at, "timestamp with time zone", :null=>false
+      column :updated_at, "timestamp with time zone", :null=>false
+      foreign_key :away_team_id, :teams, :type=>"uuid", :null=>false, :key=>[:id]
+      foreign_key :home_team_id, :teams, :type=>"uuid", :null=>false, :key=>[:id]
+      column :away_team_score, "integer"
+      column :home_team_score, "integer"
+      column :starts_at, "timestamp with time zone"
+      column :ends_at, "timestamp with time zone"
+      
+      primary_key [:id]
+      
+      index [:away_team_id]
+      index [:created_at]
+      index [:ends_at]
+      index [:home_team_id]
+      index [:starts_at]
+      index [:updated_at]
+    end
   end
 end
               Sequel.migration do
@@ -52,5 +73,6 @@ self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('2016110805104
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051837_create_sports.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108052206_create_leagues.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108053420_create_teams.rb')"
+self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108053846_create_games.rb')"
                 end
               end
