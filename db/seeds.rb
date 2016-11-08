@@ -16,3 +16,5 @@ sports = Sport.all.reduce({}) { |h, s| h[s.name] = s.id; h }
     sport_id: sports[league[:sport]],
   )
 end
+
+Dir[File.join(Rails.root, *%w(db seeds *.rb))].each { |seed| load seed }
