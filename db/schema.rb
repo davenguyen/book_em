@@ -14,6 +14,19 @@ Sequel.migration do
       
       index [:name]
     end
+    
+    create_table(:leagues) do
+      column :id, "uuid", :default=>Sequel::LiteralString.new("uuid_generate_v4()"), :null=>false
+      foreign_key :sport_id, :sports, :type=>"uuid", :null=>false, :key=>[:id]
+      column :abbreviation, "citext", :null=>false
+      column :name, "citext", :null=>false
+      
+      primary_key [:id]
+      
+      index [:abbreviation]
+      index [:name]
+      index [:sport_id]
+    end
   end
 end
               Sequel.migration do
@@ -22,5 +35,6 @@ end
                   self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051041_add_uuid_ossp.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051042_add_citext.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108051837_create_sports.rb')"
+self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108052206_create_leagues.rb')"
                 end
               end
