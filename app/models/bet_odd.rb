@@ -12,6 +12,24 @@
 #
 
 class BetOdd < Sequel::Model
+  plugin :single_table_inheritance, :type
+
   many_to_one :game
   many_to_one :team
+
+  def covered!
+    return unless game.ended?
+    update(covered: team_covered?)
+  end
+
+  def team_covered?
+    return unless game.ended?
+    team == team_covered
+  end
+
+  private
+
+  def team_covered
+    raise 'Inherit this model and implement'
+  end
 end

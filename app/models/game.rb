@@ -14,4 +14,9 @@
 class Game < Sequel::Model
   many_to_one :away_team, class: :Team
   many_to_one :home_team, class: :Team
+
+  def ended?
+    return nil unless ends_at.present?
+    Time.now >= ends_at
+  end
 end
