@@ -1,3 +1,12 @@
+# == Schema Info
+#
+# abbreviation  :string  indexed
+# city          :string  indexed      not null
+# id            :uuid    primary_key  not null, default(uuid_generate_v4())
+# league_id     :uuid    indexed
+# mascot        :string  indexed      not null
+#
+
 class Team < Sequel::Model
   many_to_one :league
 
