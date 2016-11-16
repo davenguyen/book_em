@@ -1,0 +1,107 @@
+# MONEYLINE
+
+moneyline_unplayed:
+  game: game
+  odds: -110
+  team_id: <%= Team[1].id %>
+  type: 'MoneylineOdd'
+
+moneyline_won:
+  game: completed_game
+  odds: -110
+  team_id: <%= Team[1].id %>
+  type: 'MoneylineOdd'
+
+moneyline_lost:
+  game: completed_game
+  odds: -110
+  team_id: <%= Team[2].id %>
+  type: 'MoneylineOdd'
+
+# SPREAD
+
+spread_won1:
+  game: completed_game
+  odds: -110
+  spread: -5
+  team_id: <%= Team[1].id %>
+  type: 'SpreadOdd'
+
+spread_lost1:
+  game: completed_game
+  odds: -110
+  spread: 5
+  team_id: <%= Team[2].id %>
+  type: 'SpreadOdd'
+
+spread_lost2:
+  game: completed_game
+  odds: -110
+  spread: -10
+  team_id: <%= Team[1].id %>
+  type: 'SpreadOdd'
+
+spread_won2:
+  game: completed_game
+  odds: -110
+  spread: 10
+  team_id: <%= Team[2].id %>
+  type: 'SpreadOdd'
+
+spread_lost3:
+  game: completed_game
+  odds: -110
+  spread: -5
+  team_id: <%= Team[2].id %>
+  type: 'SpreadOdd'
+
+spread_won3:
+  game: completed_game
+  odds: -110
+  spread: 5
+  team_id: <%= Team[1].id %>
+  type: 'SpreadOdd'
+
+spread_lost4:
+  game: completed_game
+  odds: -110
+  spread: -10
+  team_id: <%= Team[2].id %>
+  type: 'SpreadOdd'
+
+spread_won4:
+  game: completed_game
+  odds: -110
+  spread: 10
+  team_id: <%= Team[1].id %>
+  type: 'SpreadOdd'
+
+# TOTAL
+
+total_won1:
+  game: completed_game
+  odds: -110
+  spread: 60
+  team_id: <%= Team.over.id %>
+  type: 'TotalOdd'
+
+total_won2:
+  game: completed_game
+  odds: -110
+  spread: 50
+  team_id: <%= Team.under.id %>
+  type: 'TotalOdd'
+
+total_lost1:
+  game: completed_game
+  odds: -110
+  spread: 60
+  team_id: <%= Team.under.id %>
+  type: 'TotalOdd'
+
+total_lost2:
+  game: completed_game
+  odds: -110
+  spread: 50
+  team_id: <%= Team.over.id %>
+  type: 'TotalOdd'
