@@ -17,4 +17,11 @@ sports = Sport.all.reduce({}) { |h, s| h[s.name] = s.id; h }
   )
 end
 
+# Set tie
+Team.unrestrict_primary_key
+Team.create(abbreviation: 'T', city: 'Tie', mascot: 'Tie')
+Team.create(abbreviation: 'O', city: 'Over', mascot: 'Over')
+Team.create(abbreviation: 'U', city: 'Under', mascot: 'Under')
+Team.restrict_primary_key
+
 Dir[File.join(Rails.root, *%w(db seeds *.rb))].each { |seed| load seed }
