@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails', '~> 4.2'
+gem 'figaro', '~> 1.1'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'omniauth-google-oauth2', '~> 0.4'
 gem 'pg', '~> 0.19'
 gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
