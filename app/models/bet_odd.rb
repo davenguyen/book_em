@@ -14,12 +14,17 @@
 class BetOdd < Sequel::Model
   plugin :single_table_inheritance, :type
 
-  many_to_one :game
-  many_to_one :team
+  many_to_many :bets
+  many_to_one  :game
+  many_to_one  :team
 
   def covered!
     return unless game.ended?
     update(covered: team_covered?)
+  end
+
+  def payout_factor
+    (odds.abs + 100.to_d) / (odds.negative? ? odds.abs : 100.to_d)
   end
 
   def team_covered?

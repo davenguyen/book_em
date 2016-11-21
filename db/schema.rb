@@ -36,6 +36,23 @@ Sequel.migration do
       index [:updated_at]
     end
     
+    create_table(:bets) do
+      column :id, "uuid", :default=>Sequel::LiteralString.new("uuid_generate_v4()"), :null=>false
+      column :created_at, "timestamp with time zone", :null=>false
+      foreign_key :user_id, :users, :type=>"uuid", :null=>false, :key=>[:id]
+      column :amount, "numeric(12,2)", :null=>false
+      column :payout, "numeric(12,2)"
+      column :type, "text", :null=>false
+      
+      primary_key [:id]
+      
+      index [:amount]
+      index [:created_at]
+      index [:payout]
+      index [:type]
+      index [:user_id]
+    end
+    
     create_table(:leagues) do
       column :id, "uuid", :default=>Sequel::LiteralString.new("uuid_generate_v4()"), :null=>false
       foreign_key :sport_id, :sports, :type=>"uuid", :null=>false, :key=>[:id]
@@ -105,6 +122,15 @@ Sequel.migration do
       index [:team_id]
       index [:type]
     end
+    
+    create_table(:bet_odds_bets) do
+      foreign_key :bet_odd_id, :bet_odds, :type=>"uuid", :null=>false, :key=>[:id]
+      foreign_key :bet_id, :bets, :type=>"uuid", :null=>false, :key=>[:id]
+      
+      primary_key [:bet_odd_id, :bet_id]
+      
+      index [:bet_odd_id, :bet_id]
+    end
   end
 end
               Sequel.migration do
@@ -118,5 +144,7 @@ self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('2016110805342
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161108053846_create_games.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161113105821_create_bet_odds.rb')"
 self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161121012135_create_users.rb')"
+self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161121013202_create_bets.rb')"
+self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20161121013203_create_bet_odds_bets.rb')"
                 end
               end
