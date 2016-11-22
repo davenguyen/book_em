@@ -15,6 +15,19 @@ class Game < Sequel::Model
   many_to_one :away_team, class: :Team
   many_to_one :home_team, class: :Team
 
+  one_to_many :bet_odds
+
+  %w(moneyline spread total).each do |odd_type|
+    %w(away home).each do |team|
+      one_to_one  :"#{odd_type}_bet_#{team}",
+        class: :"#{odd_type.capitalize}Odd",
+        key: [:game_id, :team_id],
+        primary_key: [:id, :"#{team}_team_id"] do |ds|
+          ds.where{locks_at > Time.now}
+        end
+    end
+  end
+
   def ended?
     return nil unless ends_at.present?
     Time.now >= ends_at
