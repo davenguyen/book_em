@@ -1,0 +1,54 @@
+%section.content-header
+  %h1 Today's Games
+
+%section.content
+  .row
+    .col-xs-9
+      .box
+        .box-body.table-responsive.no-padding
+          %table.table.table-hover.table-striped
+            %tr
+              %th Team
+              %th Money
+              %th Spread
+              %th Total
+            - upcoming_games.each do |game|
+              %tr
+                %td= game.away_team.name
+                %td= game.moneyline_bet_away.try(:odds)
+                %td= game.spread_bet_away.try(:odds)
+                %td= game.total_bet_away.try(:odds)
+              %tr
+                %td= game.home_team.name
+                %td= game.moneyline_bet_home.try(:odds)
+                %td= game.spread_bet_home.try(:odds)
+                %td= game.total_bet_home.try(:odds)
+
+    .col-xs-3
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Receipt
+        .box-body
+          .bet
+            .pull-left
+              Philadelphia Eagles
+            .pull-right
+              \-3 (-110)
+        .box-footer
+          %h5.text-yellow Summary
+          %table.table.table-hover
+            %tr
+              %th Total Bets
+              %th
+                .text-right
+                  $0
+            %tr
+              %th Amount Wagered
+              %th
+                .text-right
+                  $0
+            %tr
+              %th Potential Payout
+              %th
+                .text-right
+                  $0

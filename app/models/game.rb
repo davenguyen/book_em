@@ -28,6 +28,14 @@ class Game < Sequel::Model
     end
   end
 
+  dataset_module do
+    def upcoming
+      where{starts_at > Time.now}.
+        where{starts_at <= (Time.now + 24.hours)}.
+        order(:starts_at)
+    end
+  end
+
   def ended?
     return nil unless ends_at.present?
     Time.now >= ends_at

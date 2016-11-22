@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %title Book 'em
+
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
+    / Tell the browser to be responsive to screen width
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
+
+  %body.hold-transition.skin-blue.sidebar-mini
+    .wrapper
+      %header.main-header
+        = link_to root_path, class: 'logo' do
+          %span.logo-mini
+            %b>B
+            'em
+          %span.logo-lg
+            %b Book
+            'em
+
+        %nav.navbar.navbar-static-top
+          %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+            = fa_icon 'menu'
+          .navbar-custom-menu
+            %ul.nav.navbar-nav
+              %li.dropdown.user.user-menu
+                - if current_user
+                  = link_to log_out_path, method: :delete do
+                    = image_tag current_user.profile_image_url, class: 'user-image'
+                    %span.hidden-xs
+                      Sign Out
+                - else
+                  = link_to '/auth/google_oauth2' do
+                    %span.hidden-xs Sign In
+
+      = render 'shared/sidebar'
+
+      .content-wrapper
+        - if notice || alert
+          = render 'shared/alert', message: notice, type: notice ? 'success' : 'danger'
+
+        = yield
